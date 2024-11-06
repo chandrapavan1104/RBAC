@@ -1,0 +1,51 @@
+<div class="content">
+  <h2>User Management</h2>
+
+  <!-- Toggle buttons to switch between viewing and adding users -->
+  <div class="toggle-buttons">
+    <button [class.active]="viewMode === 'view'" (click)="showViewUsers()">View Users</button>
+    <button [class.active]="viewMode === 'add'" (click)="showAddUserForm()">Add New User</button>
+  </div>
+
+  <!-- User List -->
+  <div *ngIf="viewMode === 'view'" class="user-list">
+    <h3>Users</h3>
+    <ul>
+      <li *ngFor="let user of users" (click)="selectUser(user)">
+        {{ user.username }} - {{ user.email }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Add New User Form -->
+  <div *ngIf="viewMode === 'add'" class="form-section">
+    <h3>Add New User</h3>
+    <form (ngSubmit)="addUser()">
+      <label for="username">Name:</label>
+      <input id="username" [(ngModel)]="newUser.username" name="username" required>
+    
+      <label for="email">Email:</label>
+      <input id="email" [(ngModel)]="newUser.email" name="email" required type="email">
+    
+      <button type="submit">Add User</button>
+      <button type="button" (click)="showViewUsers()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Selected User Details and Role Assignment -->
+  <div *ngIf="selectedUser" class="user-details">
+    <h3>{{ selectedUser.username }}'s Roles</h3>
+    <ul>
+      <li *ngFor="let role of selectedUser.roles">
+        {{ role.name }}
+        <button (click)="removeRole(selectedUser, role)">Remove Role</button>
+      </li>
+    </ul>
+    
+    <h3>Assign New Role</h3>
+    <select #roleSelect>
+      <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+    </select>
+    <button (click)="assignRole(selectedUser, { id: +roleSelect.value, name: roleSelect.options[roleSelect.selectedIndex].text })">Assign Role</button>
+  </div>
+</div>

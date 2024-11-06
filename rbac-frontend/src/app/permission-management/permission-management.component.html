@@ -1,0 +1,85 @@
+<div class="content">
+  <h2>Permission Management</h2>
+
+  <!-- Toggle Buttons for Viewing and Creating Permissions -->
+  <div class="toggle-buttons">
+    <button [class.active]="viewMode === 'existing'" (click)="showExistingPermissions()">Show Existing Permissions</button>
+    <button [class.active]="viewMode === 'new'" (click)="showNewPermissionForm()">Create New Permission</button>
+  </div>
+
+  <!-- Existing Permissions Table -->
+  <div *ngIf="viewMode === 'existing'" class="table-section">
+    <h3>Existing Permissions</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Permission ID</th>
+          <th>Level</th>
+          <th>Level ID</th>
+          <th>Read</th>
+          <th>Write</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let permission of permissions">
+          <td>{{ permission.id }}</td>
+          <td>{{ permission.level }}</td>
+          <td>{{ permission.level_id }}</td>
+          <td [class.true]="permission.can_read" [class.false]="!permission.can_read">
+            {{ permission.can_read ? 'Yes' : 'No' }}
+          </td>
+          <td [class.true]="permission.can_write" [class.false]="!permission.can_write">
+            {{ permission.can_write ? 'Yes' : 'No' }}
+          </td>
+          <td [class.true]="permission.can_edit" [class.false]="!permission.can_edit">
+            {{ permission.can_edit ? 'Yes' : 'No' }}
+          </td>
+          <td [class.true]="permission.can_delete" [class.false]="!permission.can_delete">
+            {{ permission.can_delete ? 'Yes' : 'No' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Form to Create New Permission -->
+  <div *ngIf="viewMode === 'new'" class="form-section">
+    <h3>Create New Permission</h3>
+    <!-- Level Selection Buttons -->
+    <div class="select-level">
+      <button *ngFor="let level of levels" 
+              (click)="selectLevel(level)" 
+              [class.active]="selectedLevel === level">{{ level }}
+      </button>
+    </div>
+
+    <!-- Item List after Selecting Level -->
+    <div *ngIf="selectedLevel">
+      <h4 class="section-title">Choose {{ selectedLevel }} Item</h4>
+      <input type="text" placeholder="Search items..." (input)="onSearchInput($event)" />
+      <ul>
+        <li *ngFor="let item of itemsInLevel" 
+            (click)="selectItem(item.id)" 
+            [class.selected]="selectedItemId === item.id">
+          {{ item.name }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Set Permissions Section -->
+    <div *ngIf="selectedItemId">
+      <h4 class="section-title">Set Permissions</h4>
+      <div class="checkbox-group">
+        <label><input type="checkbox" [(ngModel)]="newPermission.canRead" /> Read</label>
+        <label><input type="checkbox" [(ngModel)]="newPermission.canWrite" /> Write</label>
+        <label><input type="checkbox" [(ngModel)]="newPermission.canEdit" /> Edit</label>
+        <label><input type="checkbox" [(ngModel)]="newPermission.canDelete" /> Delete</label>
+        <label><input type="checkbox" [(ngModel)]="newPermission.inheritance" /> Inheritance</label>
+      </div>
+
+      <button (click)="checkAndSetPermission()" class="submit-button">Set Permission</button>
+    </div>
+  </div>
+</div>

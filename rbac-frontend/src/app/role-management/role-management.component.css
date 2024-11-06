@@ -1,0 +1,135 @@
+/* General styles */
+.content {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .page-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Add Role Button */
+  .add-role-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .add-role-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Form Section */
+  .form-section, .edit-form {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  .add-role-form, .edit-role-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-field {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  .submit-button, .cancel-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  
+  .cancel-button {
+    background-color: #dc3545;
+  }
+  
+  .submit-button:hover, .cancel-button:hover {
+    opacity: 0.9;
+  }
+  
+  /* Table Section */
+  .table-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .role-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .role-table th, .role-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .role-table th {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+  }
+  
+  .role-table td {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .edit-button, .delete-button {
+    padding: 5px 10px;
+    font-size: 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .edit-button {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    margin-left: 5px;
+  }
+  
+  .edit-button:hover, .delete-button:hover {
+    opacity: 0.9;
+  }
+  
