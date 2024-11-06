@@ -27,10 +27,10 @@ export class RoleService {
   }
 
   assignRoleToUser(userId: number, roleId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/assign`, { userId, roleId });
+    return this.http.post(`${this.apiUrl}/assign-role`, { userId, roleId });
   }
 
   removeRoleFromUser(userId: number, roleId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/remove`, { userId, roleId });
+    return this.http.post(`${this.apiUrl}/remove-role`, { userId, roleId });
   }
 }

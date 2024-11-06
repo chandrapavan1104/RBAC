@@ -29,13 +29,14 @@ export class UserManagementComponent implements OnInit {
   fetchUsers() {
     this.userService.getUsers().subscribe((data: User[]) => {
       this.users = data;
-      console.log(this.users);
+      //console.log(this.users);
     });
   }
 
   fetchRoles() {
     this.roleService.getRoles().subscribe((data: Role[]) => {
       this.roles = data;
+      console.log(this.roles);
     });
   }
 
