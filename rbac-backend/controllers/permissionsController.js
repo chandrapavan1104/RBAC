@@ -63,7 +63,6 @@ const getItemsInLevel = async (req, res) => {
 
 // 2. Set a new permission for a role at a specified level
 const setPermission = async (req, res) => {
-    //console.log(req.body);
     const { level, levelId, canRead, canWrite, canEdit, canDelete, inheritance } = req.body;
 
     try {
@@ -129,7 +128,6 @@ const getAllPermissions = async (req, res) => {
         const result = await db.query(`
             SELECT * FROM permissions;
         `);
-        //console.log(result.rows);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching permissions:', error);

@@ -1,61 +1,192 @@
+/* General Styling */
 .content {
+  max-width: 900px;
+  margin: 0 auto;
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.toggle-buttons {
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 1.8em;
   margin-bottom: 20px;
 }
 
+/* Toggle Buttons */
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
 .toggle-buttons button {
-  margin-right: 10px;
-  padding: 10px 20px;
+  padding: 12px 24px;
+  font-size: 14px;
   cursor: pointer;
+  border: 1px solid #1976d2;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-.user-list, .form-section, .user-details {
+.toggle-buttons button.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+/* Table Section Styling */
+.table-section {
   margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.user-list ul, .user-details ul {
-  list-style: none;
-  padding: 0;
+/* Header for Table Section */
+.table-section h3 {
+  font-size: 1.5em;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-.user-list li {
-  padding: 10px;
-  cursor: pointer;
+/* Table Styling */
+.table-section table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.table-section th, .table-section td {
+  padding: 12px;
+  text-align: center;
   border-bottom: 1px solid #ddd;
 }
 
-.user-list li:hover {
-  background-color: #f0f0f0;
+.table-section th {
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
-.form-section label {
-  display: block;
-  margin-bottom: 5px;
+.table-section td {
+  color: #333;
 }
 
-.form-section input {
+/* Alternating Row Colors for Readability */
+.table-section tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+.table-section tr:hover {
+  background-color: #e8f0fe;
+}
+
+/* Button Styling */
+button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button {
+  background-color: #1976d2;
+  color: white;
+  margin-top: 15px;
+}
+
+.submit-button:hover {
+  background-color: #155a9a;
+}
+
+.edit-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Form Section Styling */
+.form-section {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Fields */
+input[type="text"], input[type="email"], input[type="password"] {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-bottom: 15px;
   box-sizing: border-box;
 }
 
-button {
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-.user-details {
+.manage-roles-section {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
   margin-top: 20px;
 }
 
-.user-details h3 {
-  margin-top: 0;
+.assign-role-button, .remove-role-button, .back-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
-.user-details select, .user-details button {
-  margin-top: 10px;
+.assign-role-button {
+  background-color: #1976d2;
+  color: white;
+}
+
+.remove-role-button {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.back-button {
+  background-color: #757575;
+  color: white;
 }

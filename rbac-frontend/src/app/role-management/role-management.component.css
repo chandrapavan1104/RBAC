@@ -1,135 +1,248 @@
-/* General styles */
+/* General Styling */
 .content {
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  }
-  
-  .page-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Add Role Button */
-  .add-role-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-  
-  .add-role-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Form Section */
-  .form-section, .edit-form {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .section-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 15px;
-  }
-  
-  .add-role-form, .edit-role-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .input-field {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    width: 100%;
-  }
-  
-  .submit-button, .cancel-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-top: 10px;
-  }
-  
-  .cancel-button {
-    background-color: #dc3545;
-  }
-  
-  .submit-button:hover, .cancel-button:hover {
-    opacity: 0.9;
-  }
-  
-  /* Table Section */
-  .table-section {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .role-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  .role-table th, .role-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .role-table th {
-    background-color: #007bff;
-    color: #fff;
-    font-size: 14px;
-  }
-  
-  .role-table td {
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .edit-button, .delete-button {
-    padding: 5px 10px;
-    font-size: 13px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .edit-button {
-    background-color: #28a745;
-    color: #fff;
-  }
-  
-  .delete-button {
-    background-color: #dc3545;
-    color: #fff;
-    margin-left: 5px;
-  }
-  
-  .edit-button:hover, .delete-button:hover {
-    opacity: 0.9;
-  }
-  
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+/* Toggle Buttons */
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.toggle-buttons button {
+  padding: 12px 24px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #1976d2;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.toggle-buttons button.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+/* Table Section Styling */
+.table-section {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header for Table Section */
+.table-section h3 {
+  font-size: 1.5em;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Table Styling */
+.table-section table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.table-section th, .table-section td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-section th {
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table-section td {
+  color: #333;
+}
+
+/* Alternating Row Colors for Readability */
+.table-section tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+.table-section tr:hover {
+  background-color: #e8f0fe;
+}
+
+/* Alignment of Boolean Permissions */
+.table-section td.true {
+  color: green;
+  font-weight: bold;
+}
+
+.table-section td.false {
+  color: red;
+  font-weight: bold;
+}
+
+
+/* Form and Section Styling */
+.form-section, .table-section {
+  margin-top: 15px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Headers and Labels */
+h3, .section-title {
+  text-align: center;
+  font-size: 1.3em;
+  color: #444;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 1.1em;
+  color: #666;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+label {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+/* Input Fields */
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button {
+  background-color: #1976d2;
+  color: white;
+  margin-top: 15px;
+}
+
+.submit-button:hover {
+  background-color: #155a9a;
+}
+
+/* Level and Item Selection */
+.select-level {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.select-level button {
+  padding: 8px 16px;
+  font-size: 12px;
+  border: 1px solid #1976d2;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex: 1 1 100px;
+  text-align: center;
+}
+
+.select-level button:hover {
+  background-color: #bbdefb;
+}
+
+.select-level button.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+/* Item List */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+ul li {
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+ul li:hover {
+  background-color: #e0e0e0;
+}
+
+ul li.selected {
+  background-color: #1976d2;
+  color: white;
+}
+
+/* Permissions Checkbox Group */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.checkbox-group label {
+  font-size: 14px;
+  color: #333;
+  font-weight: normal;
+}
+
+/* Role Details */
+.role-details {
+  margin-top: 20px;
+}
+
+.role-details input[type="text"] {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+}

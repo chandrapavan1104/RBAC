@@ -79,13 +79,75 @@ const assignRoleToUser = async (req, res) => {
     }
 }
 
+// Create a new role with permissions
+const createRoleWithPermissions = async (req, res) => {
+    const { name, description, permissions } = req.body;
+    try {
+        const result = await db.query(
+            'INSERT INTO roles (name, description) VALUES ($1, $2) RETURNING *',
+            [name, description]
+        );
+        const newRole = result.rows[0];
+
+        if (permissions && permissions.length > 0) {
+            await Promise.all(
+                permissions.map(permissionId =>
+                    db.query(
+                        'INSERT INTO role_permissions (role_id, permission_id) VALUES ($1, $2)',
+                        [newRole.id, permissionId]
+                    )
+                )
+            );
+        }
+
+        res.status(201).json(newRole);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Update an existing role with permissions
+const updateRoleWithPermissions = async (req, res) => {
+    const { name, description, permissions } = req.body;
+    const { id } = req.params;
+    try {
+        const result = await db.query(
+            'UPDATE roles SET name = $1, description = $2 WHERE id = $3 RETURNING *',
+            [name, description, id]
+        );
+
+        const updatedRole = result.rows[0];
+        if (!updatedRole) return res.status(404).json({ error: 'Role not found' });
+
+        // Delete existing permissions and reassign them
+        await db.query('DELETE FROM role_permissions WHERE role_id = $1', [id]);
+
+        if (permissions && permissions.length > 0) {
+            await Promise.all(
+                permissions.map(permissionId =>
+                    db.query(
+                        'INSERT INTO role_permissions (role_id, permission_id) VALUES ($1, $2)',
+                        [id, permissionId]
+                    )
+                )
+            );
+        }
+
+        res.json(updatedRole);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 module.exports = {
     createRole,
     getAllRoles,
     getRoleById,
     updateRole,
     deleteRole,
-    assignRoleToUser
+    assignRoleToUser,
+    createRoleWithPermissions,
+    updateRoleWithPermissions
 };
 
   

@@ -7,14 +7,16 @@ const {
     assignRoleToUser, 
     removeRoleFromUser, 
     updateUser, 
-    deleteUser 
+    deleteUser,
+    getUserRoles 
 } = require('../controllers/userController');
 
 router.post('/', addUser);
 router.get('/', getAllUsers);
 router.post('/assign-role', assignRoleToUser);
-router.delete('/remove-role', removeRoleFromUser);
+router.post('/remove-role', removeRoleFromUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
+router.get('/:id/roles', getUserRoles);
 
 module.exports = router;

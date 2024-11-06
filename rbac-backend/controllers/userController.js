@@ -12,11 +12,28 @@ const getAllUsers = async (req, res) => {
   }
 }
 
+const getUserRoles = async (req, res) => {
+  try {
+      const userId = req.params.id;
+      const result = await db.query(
+          `SELECT roles.id, roles.name, roles.description 
+           FROM roles 
+           JOIN user_roles ON roles.id = user_roles.role_id 
+           WHERE user_roles.user_id = $1`,
+          [userId]
+      );
+      res.json(result.rows);
+  } catch (err) {
+      res.status(500).json({ error: err.message });
+  }
+}
+
 // Add a new user
 const addUser = async (req, res) => {
-  const { username, email } = req.body;
+  //console.log(req.body);
+  const { username, email, password } = req.body;
   try {
-    const newUser = await db.query('INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *', [username, email]);
+    const newUser = await db.query('INSERT INTO users (username, password_hash, email ) VALUES ($1, $2, $3) RETURNING *', [username, email, password]);
     res.status(201).json(newUser.rows[0]);
   } catch (error) {
     res.status(500).json({ message: 'Error adding user', error });
@@ -81,5 +98,6 @@ module.exports = {
     assignRoleToUser,
     updateUser,
     removeRoleFromUser,
-    deleteUser
+    deleteUser,
+    getUserRoles
 };

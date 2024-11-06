@@ -1,23 +1,39 @@
 <div class="content">
   <h2>User Management</h2>
 
-  <!-- Toggle buttons to switch between viewing and adding users -->
+  <!-- Toggle Buttons for Viewing and Adding Users -->
   <div class="toggle-buttons">
     <button [class.active]="viewMode === 'view'" (click)="showViewUsers()">View Users</button>
     <button [class.active]="viewMode === 'add'" (click)="showAddUserForm()">Add New User</button>
   </div>
 
   <!-- User List -->
-  <div *ngIf="viewMode === 'view'" class="user-list">
-    <h3>Users</h3>
-    <ul>
-      <li *ngFor="let user of users" (click)="selectUser(user)">
-        {{ user.username }} - {{ user.email }}
-      </li>
-    </ul>
+  <div *ngIf="viewMode === 'view'" class="table-section">
+    <h3>Existing Users</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button class="edit-button" (click)="editUser(user)">Edit</button>
+            <button class="delete-button" (click)="confirmDeleteUser(user.id)">Delete</button>
+            <!-- Button to manage roles for this user -->
+            <button class="manage-roles-button" (click)="manageRoles(user)">Manage Roles</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <!-- Add New User Form -->
+  <!-- Form to Add New User -->
   <div *ngIf="viewMode === 'add'" class="form-section">
     <h3>Add New User</h3>
     <form (ngSubmit)="addUser()">
@@ -27,25 +43,53 @@
       <label for="email">Email:</label>
       <input id="email" [(ngModel)]="newUser.email" name="email" required type="email">
     
-      <button type="submit">Add User</button>
-      <button type="button" (click)="showViewUsers()">Cancel</button>
+      <label for="password">Password:</label>
+      <input id="password" [(ngModel)]="newUser.password" name="password" required type="password">
+    
+      <button type="submit" class="submit-button">Add User</button>
     </form>
   </div>
 
-  <!-- Selected User Details and Role Assignment -->
-  <div *ngIf="selectedUser" class="user-details">
-    <h3>{{ selectedUser.username }}'s Roles</h3>
+<!-- Edit User Form (Only visible in edit mode and if selectedUser is not null) -->
+<div *ngIf="viewMode === 'edit' && selectedUser" class="edit-user-form">
+  <h3>Edit User</h3>
+  <form (ngSubmit)="updateUser()">
+    <label for="editUsername">Username:</label>
+    <input id="editUsername" [(ngModel)]="selectedUser.username" name="editUsername" required />
+
+    <label for="editEmail">Email:</label>
+    <input id="editEmail" [(ngModel)]="selectedUser.email" name="editEmail" required />
+
+    <button type="submit" class="submit-button">Update User</button>
+    <button type="button" class="cancel-button" (click)="showViewUsers()">Cancel</button>
+  </form>
+</div>
+
+<!-- User Role Management Section -->
+<div *ngIf="viewMode === 'manageRoles' && selectedUser" class="manage-roles-section">
+  <h3>Manage Roles for {{ selectedUser.username }}</h3>
+
+  <!-- Assigned Roles -->
+  <div class="role-list">
+    <h4>Assigned Roles</h4>
     <ul>
       <li *ngFor="let role of selectedUser.roles">
         {{ role.name }}
-        <button (click)="removeRole(selectedUser, role)">Remove Role</button>
+        <button (click)="removeRole(selectedUser, role)" class="remove-role-button">Remove</button>
       </li>
     </ul>
-    
-    <h3>Assign New Role</h3>
+  </div>
+
+  <!-- Assign New Role -->
+  <div class="assign-role">
+    <h4>Assign New Role</h4>
     <select #roleSelect>
       <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
     </select>
-    <button (click)="assignRole(selectedUser, { id: +roleSelect.value, name: roleSelect.options[roleSelect.selectedIndex].text })">Assign Role</button>
+    <button (click)="assignRole(selectedUser, +roleSelect.value)" class="assign-role-button">Assign Role</button>
   </div>
+
+  <button class="back-button" (click)="showViewUsers()">Back to User List</button>
+</div>
+
 </div>

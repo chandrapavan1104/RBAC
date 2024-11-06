@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Role } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,13 @@ export class UserService {
 
   resetPassword(userId: number, newPassword: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/${userId}/reset-password`, { password: newPassword });
+  }
+  // Fetch roles for a specific user
+  getUserRoles(userId: number): Observable<Role[]> {
+    return this.http.get<Role[]>(`${this.apiUrl}/${userId}/roles`);
+  }
+
+  removeRoleFromUser(userId: number, roleId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/remove-role`, { userId, roleId });
   }
 }
