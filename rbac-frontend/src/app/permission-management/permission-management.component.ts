@@ -19,6 +19,7 @@ export class PermissionManagementComponent implements OnInit {
   levels = ['App', 'Module', 'Feature', 'Object', 'Record', 'Field'];
   selectedLevel = '';
   itemsInLevel: any[] = [];
+  selectedPermission: any = null;
   selectedItemId: number | null = null;
 
   newPermission = {
@@ -26,7 +27,9 @@ export class PermissionManagementComponent implements OnInit {
     canWrite: false,
     canEdit: false,
     canDelete: false,
-    inheritance: true
+    inheritance: true,
+    name: '',
+    description: ''
   };
 
   constructor(private permissionService: PermissionService) {}
@@ -38,6 +41,7 @@ export class PermissionManagementComponent implements OnInit {
   // Toggle view to show existing permissions
   showExistingPermissions(): void {
     this.viewMode = 'existing';
+    this.selectedPermission = null;
     this.fetchPermissions();
   }
 
@@ -99,6 +103,35 @@ export class PermissionManagementComponent implements OnInit {
     });
   }
 
+  // Select a permission for editing
+  editPermission(permission: any): void {
+    this.viewMode = 'edit';
+    this.selectedPermission = { ...permission }; 
+  }
+  // Update the selected permission
+  updatePermission(): void {
+    this.permissionService.updatePermission(this.selectedPermission).subscribe( response => {
+      if (response.exists) {
+        alert(`A similar permission already exists: ${response.body}`);
+      } else {
+        alert('Permission created successfully!');
+        this.resetForm();
+      }
+        this.showExistingPermissions();
+        this.fetchPermissions();
+      }
+    );
+  }
+
+  deletePermission(permissionId: number): void {
+    if (confirm('Are you sure you want to delete this permission?')) {
+      this.permissionService.deletePermission(permissionId).subscribe(() => {
+        this.fetchPermissions();
+        alert('Permission deleted successfully');
+      });
+    }
+  }
+
   // Reset the form
   resetForm(): void {
     this.selectedLevel = '';
@@ -108,8 +141,11 @@ export class PermissionManagementComponent implements OnInit {
       canWrite: false,
       canEdit: false,
       canDelete: false,
-      inheritance: true
+      inheritance: true,
+      name: '',
+      description: ''
     };
+    this.selectedPermission = null;
   }
 
 }

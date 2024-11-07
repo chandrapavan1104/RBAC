@@ -10,7 +10,7 @@ const getItemsInLevel = async (req, res) => {
 
     let query = '';
     let countQuery = '';
-    let params = [`%${searchQuery}%`, limit, offset];
+    const params = [`%${searchQuery}%`, limit, offset];
 
     switch (level.toLowerCase()) {
         case 'app':
@@ -60,42 +60,42 @@ const getItemsInLevel = async (req, res) => {
     }
 };
 
-
 // 2. Set a new permission for a role at a specified level
-const setPermission = async (req, res) => {
-    const { level, levelId, canRead, canWrite, canEdit, canDelete, inheritance } = req.body;
-
+const createPermission = async (req, res) => {
+    const { level, levelId, canRead, canWrite, canEdit, canDelete, inheritance, name, description } = req.body;
     try {
-        const result = await db.query(
-            `INSERT INTO permissions (level, level_id, can_read, can_write, can_edit, can_delete, inheritance)
-             VALUES ($1, $2, $3, $4, $5, $6, $7)
-             RETURNING *`,
-            [level, levelId, canRead, canWrite, canEdit, canDelete, inheritance]
-        );
-        res.status(201).json(result.rows[0]);
+        const permission = await setPermission(level, levelId, canRead, canWrite, canEdit, canDelete, inheritance, name, description);
+        res.status(201).json(permission);
     } catch (error) {
         console.error('Error setting permission:', error);
         res.status(500).json({ error: 'Error setting permission' });
     }
 };
 
-// 4. Update an existing permission
+// 3. Update an existing permission
 const updatePermission = async (req, res) => {
     const { id } = req.params;
-    const { canRead, canWrite, canEdit, canDelete, inheritance } = req.body;
+    const { level, levelId, canRead, canWrite, canEdit, canDelete, inheritance, name, description } = req.body;
 
     try {
-        const result = await db.query(
-            `UPDATE permissions
-             SET can_read = $1, can_write = $2, can_edit = $3, can_delete = $4, inheritance = $5
-             WHERE id = $6
-             RETURNING *`,
-            [canRead, canWrite, canEdit, canDelete, inheritance, id]
-        );
+        const findPermission = await db.query(`SELECT * FROM permissions WHERE id = $1`, [id]);
 
-        if (result.rowCount === 0) {
+        if (findPermission.rows.length === 0) {
             return res.status(404).json({ error: 'Permission not found' });
         }
+
+        const duplicatePermission = await checkDuplicate(level, levelId, canRead, canWrite, canEdit, canDelete, inheritance);
+        if (duplicatePermission && duplicatePermission.id !== parseInt(id)) {
+            return res.status(409).json({ error: 'Duplicate permission exists' });
+        }
+
+        const result = await db.query(
+            `UPDATE permissions
+             SET level = $1, level_id = $2, can_read = $3, can_write = $4, can_edit = $5, can_delete = $6, inheritance = $7, name = $8, description = $9
+             WHERE id = $10
+             RETURNING *`,
+            [level, levelId, canRead, canWrite, canEdit, canDelete, inheritance, name, description, id]
+        );
 
         res.json(result.rows[0]);
     } catch (error) {
@@ -104,12 +104,12 @@ const updatePermission = async (req, res) => {
     }
 };
 
-// 5. Delete a permission by ID
+// 4. Delete a permission by ID
 const deletePermission = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const result = await db.query(`DELETE FROM permissions WHERE id = $1`, [id]);
+        const result = await db.query(`DELETE FROM permissions WHERE id = $1 RETURNING *`, [id]);
 
         if (result.rowCount === 0) {
             return res.status(404).json({ error: 'Permission not found' });
@@ -122,12 +122,10 @@ const deletePermission = async (req, res) => {
     }
 };
 
-// 6. Fetch all permissions with role details
+// 5. Fetch all permissions with role details
 const getAllPermissions = async (req, res) => {
     try {
-        const result = await db.query(`
-            SELECT * FROM permissions;
-        `);
+        const result = await db.query(`SELECT * FROM permissions`);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching permissions:', error);
@@ -135,51 +133,60 @@ const getAllPermissions = async (req, res) => {
     }
 };
 
-const checkDuplicatePermission = async (req, res) => {
-    const { level, levelId, canRead, canWrite, canEdit, canDelete } = req.body;
+// Helper function to check for duplicate permission
+const checkDuplicate = async (level, levelId, canRead, canWrite, canEdit, canDelete, inheritance) => {
+    const result = await db.query(
+        `SELECT * 
+         FROM permissions
+         WHERE LOWER(level) = LOWER($1) 
+           AND level_id = $2 
+           AND can_read = $3 
+           AND can_write = $4 
+           AND can_edit = $5 
+           AND can_delete = $6
+           AND inheritance = $7`,
+        [level, levelId, canRead, canWrite, canEdit, canDelete, inheritance]
+    );
+    return result.rows.length > 0 ? result.rows[0] : null;
+};
+
+// Helper function to set a new permission
+const setPermission = async (level, levelId, canRead, canWrite, canEdit, canDelete, inheritance, name, description) => {
+    const result = await db.query(
+        `INSERT INTO permissions (level, level_id, can_read, can_write, can_edit, can_delete, inheritance, name, description)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+         RETURNING *`,
+        [level, levelId, canRead, canWrite, canEdit, canDelete, inheritance, name, description]
+    );
+    return result.rows[0];
+};
+
+// Main function to handle duplicate check and setting permission
+const checkDuplicateAndSetPermission = async (req, res) => {
+    const { level, levelId, canRead, canWrite, canEdit, canDelete, inheritance, name, description } = req.body;
 
     try {
-        // Query the permissions table to check for a similar permission
-        const result = await db.query(
-            `SELECT * 
-            FROM permissions
-            WHERE LOWER(level) = LOWER($1) 
-              AND level_id = $2 
-              AND can_read = $3 
-              AND can_write = $4 
-              AND can_edit = $5 
-              AND can_delete = $6;
-            `,
-            [level, levelId, canRead, canWrite, canEdit, canDelete]
-        );
+        const duplicatePermission = await checkDuplicate(level, levelId, canRead, canWrite, canEdit, canDelete, inheritance);
+        
+        if (duplicatePermission) {
+            return res.json({ exists: true, permission: duplicatePermission });
+        } 
+        
+        const newPermission = await setPermission(level, levelId, canRead, canWrite, canEdit, canDelete, inheritance, name, description);
+        
+        res.status(201).json({ exists: false, permission: newPermission });
 
-        if (result.rows.length > 0) {
-            // Similar permission exists, return the existing item
-            return res.json({ exists: true, permissions: result.rows[0] });
-        } else {
-            // Step 1: Insert the new permission 
-            const permissionResult = await db.query(
-                `INSERT INTO permissions (level, level_id, can_read, can_write, can_edit, can_delete)
-                 VALUES ($1, $2, $3, $4, $5, $6)
-                 RETURNING *`,
-                [level, levelId, canRead, canWrite, canEdit, canDelete]
-            );
-
-            // Return the new role and permission information
-            res.status(201).json({ exists: false, permission: permissionResult.rows[0] });
-        }
     } catch (error) {
-        console.error('Error checking duplicate permission:', error);
-        res.status(500).json({ error: 'Error checking duplicate permission' });
+        console.error('Error checking or setting permission:', error);
+        res.status(500).json({ error: 'Error checking or setting permission' });
     }
 };
 
-
 module.exports = {
     getItemsInLevel,
-    setPermission,
+    createPermission,
     updatePermission,
     deletePermission,
     getAllPermissions,
-    checkDuplicatePermission
+    checkDuplicateAndSetPermission
 };

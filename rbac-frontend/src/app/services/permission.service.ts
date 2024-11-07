@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Permission } from '../models/permission.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +34,15 @@ export class PermissionService {
   // Add new permission and role
   addNewPermissionAndRole(permissionData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/add-with-role`, permissionData);
+  }
+
+  // **Update a permission**
+  updatePermission(permissionData: Permission): Observable<any> {
+    return this.http.put<Permission>(`${this.apiUrl}/${permissionData.id}`, permissionData);
+  }
+
+  // **Delete a permission by ID**
+  deletePermission(permissionId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${permissionId}`);
   }
 }
