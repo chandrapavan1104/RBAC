@@ -23,33 +23,36 @@
           <td>{{ role.name }}</td>
           <td>{{ role.description }}</td>
           <td>
-            <button (click)="editRole(role)">Edit</button>
-            <button (click)="confirmDeleteRole(role.id)">Delete</button>
+            <button class="edit-button" (click)="editRole(role)">Edit</button>
+            <button class="delete-button" (click)="confirmDeleteRole(role.id)">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Form to Add/Edit Role -->
-  <div class="form-section" *ngIf="viewMode === 'add' || viewMode === 'edit'">
-    <h3>{{ viewMode === 'add' ? 'Add New Role' : 'Edit Role' }}</h3>
-    <form (ngSubmit)="viewMode === 'add' ? createRole() : updateRole()">
-      <label for="roleName">Role Name:</label>
-      <input id="roleName" [(ngModel)]="newRole.name" name="roleName" required>
-  
-      <label for="roleDescription">Description:</label>
-      <input id="roleDescription" [(ngModel)]="newRole.description" name="roleDescription" required>
-  
-      <h4>Assign Permissions</h4>
-      <div *ngFor="let permission of permissions">
-        <input type="checkbox" [(ngModel)]="permission.selected" name="permission{{permission.id}}"> <!-- Add unique name -->
+<!-- Form to Add/Edit Role -->
+<div class="form-section" *ngIf="viewMode === 'add' || viewMode === 'edit'">
+  <h3>{{ viewMode === 'add' ? 'Add New Role' : 'Edit Role' }}</h3>
+  <form (ngSubmit)="viewMode === 'add' ? createRole() : updateRole()">
+    <label for="roleName">Role Name:</label>
+    <input id="roleName" [(ngModel)]="newRole.name" name="roleName" required>
+
+    <label for="roleDescription">Description:</label>
+    <input id="roleDescription" [(ngModel)]="newRole.description" name="roleDescription" required>
+
+    <h4>Assign Permissions</h4>
+    <div class="permissions-section">
+      <label *ngFor="let permission of permissions" class="permission-checkbox">
+        <input type="checkbox" [(ngModel)]="permission.selected" name="permission{{permission.id}}"> 
         {{ permission.id }}
-      </div>
-  
-      <button type="submit" class="submit-button">{{ viewMode === 'add' ? 'Add Role' : 'Update Role' }}</button>
-      <button type="button" class="cancel-button" (click)="showViewRoles()">Cancel</button>
-    </form>
-  </div>
+      </label>
+    </div>
+
+    <button type="submit" class="submit-button">{{ viewMode === 'add' ? 'Add Role' : 'Update Role' }}</button>
+    <button type="button" class="cancel-button" (click)="showViewRoles()">Cancel</button>
+  </form>
+</div>
+
   
 </div>

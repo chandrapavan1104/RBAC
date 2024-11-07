@@ -106,6 +106,8 @@ assignRole(user: User, roleId: number) {
   this.roleService.assignRoleToUser(user.id, roleId).subscribe(() => {
     this.fetchUsers(); // Refresh user data
     alert('Role assigned successfully.');
+    this.viewMode = 'manageRoles';
+    this.fetchUserRoles(user.id);
   });
 }
 
@@ -114,6 +116,8 @@ removeRole(user: User, role: Role) {
   this.userService.removeRoleFromUser(user.id, role.id).subscribe(() => {
     this.fetchUsers(); // Refresh user data
     alert('Role removed successfully.');
+    this.viewMode = 'manageRoles';
+    this.fetchUserRoles(user.id);
   });
 }
 
