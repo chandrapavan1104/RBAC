@@ -1,13 +1,11 @@
-<div class="content">
+<!-- <div class="content">
   <h2>User Management</h2>
 
-  <!-- Toggle Buttons for Viewing and Adding Users -->
   <div class="toggle-buttons">
     <button [class.active]="viewMode === 'view'" (click)="showViewUsers()">View Users</button>
     <button [class.active]="viewMode === 'add'" (click)="showAddUserForm()">Add New User</button>
   </div>
 
-  <!-- User List -->
   <div *ngIf="viewMode === 'view'" class="table-section">
     <h3>Existing Users</h3>
     <table>
@@ -25,7 +23,6 @@
           <td>
             <button class="edit-button" (click)="editUser(user)">Edit</button>
             <button class="delete-button" (click)="confirmDeleteUser(user.id)">Delete</button>
-            <!-- Button to manage roles for this user -->
             <button class="manage-roles-button" (click)="manageRoles(user)">Manage Roles</button>
           </td>
         </tr>
@@ -33,7 +30,6 @@
     </table>
   </div>
 
-<!-- Form to Add New User -->
 <div *ngIf="viewMode === 'add'" class="add-user-section">
   <h3>Add New User</h3>
   <form (ngSubmit)="addUser()" class="add-user-form">
@@ -41,23 +37,22 @@
       <label for="username">Name:</label>
       <input id="username" [(ngModel)]="newUser.username" name="username" required>
     </div>
-    
+
     <div class="form-group">
       <label for="email">Email:</label>
       <input id="email" [(ngModel)]="newUser.email" name="email" required type="email">
     </div>
-    
+
     <div class="form-group">
       <label for="password">Password:</label>
       <input id="password" [(ngModel)]="newUser.password" name="password" required type="password">
     </div>
-    
+
     <button type="submit" class="submit-button">Add User</button>
   </form>
 </div>
 
 
-<!-- Edit User Form (Only visible in edit mode and if selectedUser is not null) -->
 <div *ngIf="viewMode === 'edit' && selectedUser" class="edit-user-section">
   <h3>Edit User</h3>
   <form (ngSubmit)="updateUser()" class="edit-user-form">
@@ -78,12 +73,9 @@
   </form>
 </div>
 
-
-<!-- User Role Management Section -->
 <div *ngIf="viewMode === 'manageRoles' && selectedUser" class="manage-roles-section">
   <h3>Manage Roles for {{ selectedUser.username }}</h3>
 
-  <!-- Assigned Roles -->
   <div class="role-list">
     <h4>Assigned Roles</h4>
     <ul>
@@ -94,7 +86,6 @@
     </ul>
   </div>
 
-  <!-- Assign New Role -->
   <div class="assign-role-section">
     <h4>Assign New Role</h4>
     <div class="role-select-wrapper">
@@ -106,4 +97,112 @@
   </div>
 
   <button class="back-button" (click)="showViewUsers()">Back to User List</button>
+</div> -->
+
+<div class="content">
+  <h2>User Management</h2>
+
+  <div class="toggle-buttons">
+    <button [class.active]="viewMode === 'view'" (click)="showViewUsers()">View Users</button>
+    <button [class.active]="viewMode === 'add'" (click)="showAddUserForm()">Add New User</button>
+  </div>
+
+  <div *ngIf="viewMode === 'view'" class="table-section">
+    <h3>Existing Users</h3>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef> User Name </th>
+        <td mat-cell *matCellDef="let user"> {{ user.username }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let user">
+          <button class="edit-button" (click)="editUser(user)">Edit</button>
+          <button class="delete-button" (click)="confirmDeleteUser(user.id)">Delete</button>
+          <button class="manage-roles-button" (click)="manageRoles(user)">Manage Roles</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['username', 'email', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['username', 'email', 'actions'];"></tr>
+    </table>
+
+    <!-- Add paginator here -->
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20 , 30]" aria-label="Select page">
+    </mat-paginator>
+  </div>
+  <div *ngIf="viewMode === 'add'" class="add-user-section">
+    <h3>Add New User</h3>
+    <form (ngSubmit)="addUser()" class="add-user-form">
+      <div class="form-group">
+        <label for="username">Name:</label>
+        <input id="username" [(ngModel)]="newUser.username" name="username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" [(ngModel)]="newUser.email" name="email" required type="email">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input id="password" [(ngModel)]="newUser.password" name="password" required type="password">
+      </div>
+
+      <button type="submit" class="submit-button">Add User</button>
+    </form>
+  </div>
+
+
+  <div *ngIf="viewMode === 'edit' && selectedUser" class="edit-user-section">
+    <h3>Edit User</h3>
+    <form (ngSubmit)="updateUser()" class="edit-user-form">
+      <div class="form-group">
+        <label for="editUsername">Username:</label>
+        <input id="editUsername" [(ngModel)]="selectedUser.username" name="editUsername" required />
+      </div>
+
+      <div class="form-group">
+        <label for="editEmail">Email:</label>
+        <input id="editEmail" [(ngModel)]="selectedUser.email" name="editEmail" required />
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="submit-button">Update User</button>
+        <button type="button" class="cancel-button" (click)="showViewUsers()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="viewMode === 'manageRoles' && selectedUser" class="manage-roles-section">
+    <h3>Manage Roles for {{ selectedUser.username }}</h3>
+
+    <div class="role-list">
+      <h4>Assigned Roles</h4>
+      <ul>
+        <li *ngFor="let role of selectedUser.roles">
+          {{ role.name }}
+          <button (click)="removeRole(selectedUser, role)" class="remove-role-button">Remove</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="assign-role-section">
+      <h4>Assign New Role</h4>
+      <div class="role-select-wrapper">
+        <select #roleSelect class="role-select">
+          <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+        </select>
+        <button (click)="assignRole(selectedUser, +roleSelect.value)" class="assign-role-button">Assign Role</button>
+      </div>
+    </div>
+
+    <button class="back-button" (click)="showViewUsers()">Back to User List</button>
+  </div>
 </div>

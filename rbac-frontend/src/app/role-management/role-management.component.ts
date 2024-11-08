@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RoleService } from '../services/role.service';
 import { PermissionService } from '../services/permission.service';
 import { Role } from '../models/role.model';
 import { Permission } from '../models/permission.model';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   standalone: true,
@@ -12,15 +16,20 @@ import { Permission } from '../models/permission.model';
   templateUrl: './role-management.component.html',
   styleUrls: ['./role-management.component.css'],
   providers: [RoleService, PermissionService],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, MatTableModule, MatPaginatorModule]
 })
 export class RoleManagementComponent implements OnInit {
   roles: Role[] = [];
+  paginatedRoles = new MatTableDataSource<Role>(this.roles);
   permissions: Permission[] = [];
   selectedRole: Role | null = null;
   viewMode: 'view' | 'add' | 'edit' = 'view';
   newRole: Role = { id: 0, name: '', description: '', permissions: [] };
   isEditing: boolean = false;
+  displayedColumns: string[] = ['name', 'description', 'actions'];
+
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private roleService: RoleService,
@@ -32,10 +41,15 @@ export class RoleManagementComponent implements OnInit {
     this.fetchPermissions();
   }
 
+  ngAfterViewInit() {
+    this.paginatedRoles.paginator = this.paginator;
+  }
+
   // Fetch all roles
   fetchRoles(): void {
     this.roleService.getRoles().subscribe((data: Role[]) => {
       this.roles = data;
+      this.paginatedRoles.data = this.roles;
     });
   }
 

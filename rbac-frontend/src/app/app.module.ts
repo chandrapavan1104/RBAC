@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { RoleManagementComponent } from './role-management/role-management.component';
 import { PermissionManagementComponent } from './permission-management/permission-management.component';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { RouterOutlet } from '@angular/router';
 
 @NgModule({
@@ -19,7 +21,10 @@ import { RouterOutlet } from '@angular/router';
   imports: [
     BrowserModule,
     RouterOutlet,
-    FormsModule
+    FormsModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

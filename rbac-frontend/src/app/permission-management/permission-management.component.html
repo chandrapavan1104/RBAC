@@ -8,7 +8,7 @@
   </div>
 
   <!-- Existing Permissions Table -->
-  <div *ngIf="viewMode === 'existing'" class="table-section">
+  <!-- <div *ngIf="viewMode === 'existing'" class="table-section">
     <h3>Existing Permissions</h3>
     <table>
       <thead>
@@ -42,6 +42,60 @@
         </tr>
       </tbody>
     </table>
+  </div> -->
+
+  <div *ngIf="viewMode === 'existing'" class="table-section">
+    <h3>Existing Permissions</h3>
+    <table mat-table [dataSource]="permissions" >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Permission ID </th>
+        <td mat-cell *matCellDef="let permission"> {{ permission.id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="level">
+        <th mat-header-cell *matHeaderCellDef> Level </th>
+        <td mat-cell *matCellDef="let permission"> {{ permission.level }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="levelId">
+        <th mat-header-cell *matHeaderCellDef> Level ID </th>
+        <td mat-cell *matCellDef="let permission"> {{ permission.level_id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="canRead">
+        <th mat-header-cell *matHeaderCellDef> Read </th>
+        <td mat-cell *matCellDef="let permission" [class.true]="permission.can_read" [class.false]="!permission.can_read">
+          {{ permission.can_read ? 'Yes' : 'No' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="canWrite">
+        <th mat-header-cell *matHeaderCellDef> Write </th>
+        <td mat-cell *matCellDef="let permission" [class.true]="permission.can_write" [class.false]="!permission.can_write">
+          {{ permission.can_write ? 'Yes' : 'No' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="canEdit">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let permission" [class.true]="permission.can_edit" [class.false]="!permission.can_edit">
+          {{ permission.can_edit ? 'Yes' : 'No' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="canDelete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let permission" [class.true]="permission.can_delete" [class.false]="!permission.can_delete">
+          {{ permission.can_delete ? 'Yes' : 'No' }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['id', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete'];"></tr>
+    </table>
+
+    <!-- Paginator Component -->
+    <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 
   <!-- Form to Create New Permission -->
@@ -49,8 +103,8 @@
     <h3>Create New Permission</h3>
     <!-- Level Selection Buttons -->
     <div class="select-level">
-      <button *ngFor="let level of levels" 
-              (click)="selectLevel(level)" 
+      <button *ngFor="let level of levels"
+              (click)="selectLevel(level)"
               [class.active]="selectedLevel === level">{{ level }}
       </button>
     </div>
@@ -60,8 +114,8 @@
       <h4 class="section-title">Choose {{ selectedLevel }} Item</h4>
       <input type="text" placeholder="Search items..." (input)="onSearchInput($event)" />
       <ul>
-        <li *ngFor="let item of itemsInLevel" 
-            (click)="selectItem(item.id)" 
+        <li *ngFor="let item of itemsInLevel"
+            (click)="selectItem(item.id)"
             [class.selected]="selectedItemId === item.id">
           {{ item.name }}
         </li>
