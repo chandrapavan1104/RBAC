@@ -1,6 +1,6 @@
 /* General Styling */
 .content {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -47,7 +47,6 @@ h2 {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Header for Table Section */
 .table-section h3 {
   font-size: 1.5em;
   color: #333;
@@ -56,7 +55,6 @@ h2 {
   margin-bottom: 15px;
 }
 
-/* Table Styling */
 .table-section table {
   width: 100%;
   border-collapse: collapse;
@@ -80,7 +78,6 @@ h2 {
   color: #333;
 }
 
-/* Alternating Row Colors for Readability */
 .table-section tr:nth-child(even) {
   background-color: #f3f3f3;
 }
@@ -113,12 +110,7 @@ button {
   background-color: #4CAF50;
   color: white;
   padding: 8px 16px;
-  font-size: 14px;
   margin-right: 5px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .edit-button:hover {
@@ -129,11 +121,6 @@ button {
   background-color: #f44336;
   color: white;
   padding: 8px 16px;
-  font-size: 14px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .delete-button:hover {
@@ -161,248 +148,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   box-sizing: border-box;
 }
 
-/* General Styling */
-.manage-roles-section,
-.add-edit-user-section {
-  padding: 25px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.manage-roles-section h3,
-.add-edit-user-section h3 {
-  font-size: 1.6em;
-  color: #333;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-/* Assigned Roles List */
-.role-list h4 {
-  font-size: 1.3em;
-  color: #1976d2;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.role-list ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 10px;
-  margin-bottom: 15px;
-}
-
-.role-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 5px;
-  background-color: #e3f2fd;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.role-list li:hover {
-  background-color: #bbdefb;
-}
-
-/* Buttons */
-.assign-role-button,
-.remove-role-button,
-.back-button {
-  padding: 10px 16px;
-  font-size: 14px;
-  margin-top: 10px;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.assign-role-button {
-  background-color: #1976d2;
-  color: white;
-}
-
-.assign-role-button:hover {
-  background-color: #1565c0;
-}
-
-.remove-role-button {
-  background-color: #d32f2f;
-  color: white;
-}
-
-.remove-role-button:hover {
-  background-color: #b71c1c;
-}
-
-.back-button {
-  background-color: #757575;
-  color: white;
-}
-
-.back-button:hover {
-  background-color: #616161;
-}
-
-/* General Section Styling */
-.add-user-section {
-  padding: 30px;
-  max-width: 500px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-}
-
-/* Header Styling */
-.add-user-section h3 {
-  text-align: center;
-  color: #333;
-  font-size: 1.8em;
-  font-weight: bold;
-  margin-bottom: 25px;
-}
-
-/* Form Group Styling */
-.add-user-form .form-group {
-  margin-bottom: 20px;
-}
-
-.add-user-form label {
-  font-size: 14px;
-  color: #555;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.add-user-form input[type="text"],
-.add-user-form input[type="email"],
-.add-user-form input[type="password"] {
-  width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-}
-
-.add-user-form input[type="text"]:focus,
-.add-user-form input[type="email"]:focus,
-.add-user-form input[type="password"]:focus {
-  border-color: #1976d2;
-  outline: none;
-}
-
-/* General Section Styling */
-.edit-user-section {
-  padding: 30px;
-  max-width: 500px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-}
-
-/* Header Styling */
-.edit-user-section h3 {
-  text-align: center;
-  color: #333;
-  font-size: 1.8em;
-  font-weight: bold;
-  margin-bottom: 25px;
-}
-
-/* Form Group Styling */
-.edit-user-form .form-group {
-  margin-bottom: 20px;
-}
-
-.edit-user-form label {
-  font-size: 14px;
-  color: #555;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.edit-user-form input[type="text"],
-.edit-user-form input[type="email"] {
-  width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-}
-
-.edit-user-form input[type="text"]:focus,
-.edit-user-form input[type="email"]:focus {
-  border-color: #1976d2;
-  outline: none;
-}
-
-/* Button Group Styling */
-.button-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.cancel-button {
-  flex: 1;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #757575;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.cancel-button:hover {
-  background-color: #616161;
-}
-
-
-/* Submit Button Styling */
-.submit-button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-}
-
-.submit-button:hover {
-  background-color: #1565c0;
-}
-
-
-/* Manage Roles Section Styling */
+/* Manage Roles Section */
 .manage-roles-section {
   padding: 30px;
   max-width: 600px;
@@ -411,7 +157,6 @@ input[type="text"], input[type="email"], input[type="password"] {
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
 }
 
 .manage-roles-section h3 {
@@ -422,18 +167,6 @@ input[type="text"], input[type="email"], input[type="password"] {
   margin-bottom: 20px;
 }
 
-.role-list, .assign-role-section {
-  margin-top: 20px;
-}
-
-.role-list h4, .assign-role-section h4 {
-  font-size: 1.2em;
-  color: #444;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-/* Role List Styling */
 .role-list ul {
   list-style-type: none;
   padding: 0;
@@ -449,19 +182,13 @@ input[type="text"], input[type="email"], input[type="password"] {
   border: 1px solid #ddd;
   border-radius: 4px;
   color: #333;
-  font-size: 14px;
 }
 
-/* Remove Role Button */
 .remove-role-button {
   padding: 6px 10px;
   font-size: 12px;
   background-color: #d32f2f;
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .remove-role-button:hover {
@@ -474,13 +201,6 @@ input[type="text"], input[type="email"], input[type="password"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.role-select-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
 }
 
 .role-select {
@@ -496,10 +216,6 @@ input[type="text"], input[type="email"], input[type="password"] {
   font-size: 14px;
   background-color: #1976d2;
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .assign-role-button:hover {
@@ -515,14 +231,71 @@ input[type="text"], input[type="email"], input[type="password"] {
   font-size: 16px;
   background-color: #757575;
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .back-button:hover {
   background-color: #616161;
 }
 
+/* Additional Section Styling */
+.add-user-section,
+.edit-user-section {
+  padding: 30px;
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.add-user-section h3,
+.edit-user-section h3 {
+  text-align: center;
+  color: #333;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.add-user-form .form-group,
+.edit-user-form .form-group {
+  margin-bottom: 20px;
+}
+
+.add-user-form label,
+.edit-user-form label {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+.add-user-form input[type="text"],
+.edit-user-form input[type="text"],
+.add-user-form input[type="email"],
+.edit-user-form input[type="email"],
+.add-user-form input[type="password"],
+.edit-user-form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-user-form input[type="text"]:focus,
+.edit-user-form input[type="text"]:focus,
+.add-user-form input[type="email"]:focus,
+.edit-user-form input[type="email"]:focus,
+.add-user-form input[type="password"]:focus,
+.edit-user-form input[type="password"]:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+/* Button Group Styling */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}

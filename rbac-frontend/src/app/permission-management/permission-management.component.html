@@ -62,18 +62,27 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['id','name','description', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['id','name','description', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete'];"></tr>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let permission">
+          <button (click)="editPermission(permission)" class="edit-button">Edit</button>
+          <button (click)="deletePermission(permission.id)" class="delete-button">Delete</button>
+        </td>
+      </ng-container>
+      
+
+      <tr mat-header-row *matHeaderRowDef="['id','name','description', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id','name','description', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete', 'actions'];"></tr>
     </table>
 
     <!-- Paginator Component -->
     <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 
-  <!-- Form to Create or Edit Permission -->
+  <!-- Form to Create or Edit Permission
   <div *ngIf="viewMode === 'new' || viewMode === 'edit'" class="form-section">
-    <h3>{{ viewMode === 'new' ? 'Create New Permission' : 'Edit Permission' }}</h3>
-
+    <h3>{{ viewMode === 'new' ? 'Create New Permission' : 'Edit Permission' }}</h3> -->
+    <div>
     <!-- Level Selection for New Permission -->
     <div *ngIf="viewMode === 'new'" class="select-level">
       <button *ngFor="let level of levels" (click)="selectLevel(level)" [class.active]="selectedLevel === level">{{ level }}</button>
@@ -89,19 +98,25 @@
     </div>
 
     <!-- Permission Details Form for Both New and Edit Modes -->
-    <div *ngIf="viewMode === 'edit' || (viewMode === 'new' && selectedItemId)">
-      <h4 class="section-title">{{ viewMode === 'new' ? 'Set Permissions' : 'Update Permissions' }}</h4>
+    <!-- <div class="toggle-buttons">
+      <button [class.active]="viewMode === 'existing'" (click)="showExistingPermissions()">Show Existing Permissions</button>
+      <button [class.active]="viewMode === 'new'" (click)="showNewPermissionForm()">Create New Permission</button>
+    </div> -->
+  
+    <!-- Form Section -->
+    <div *ngIf="viewMode === 'edit' || (viewMode === 'new' && selectedItemId)" class="form-section">
+      <h3>{{ viewMode === 'new' ? 'Set Permissions' : 'Update Permissions' }}</h3>
+  
       <form (ngSubmit)="viewMode === 'new' ? checkAndSetPermission() : updatePermission()">
-
         <!-- Prefilled Fields for Editing -->
-        <div *ngIf="viewMode === 'edit'">
+        <div *ngIf="viewMode === 'edit'" class="prefilled-fields">
           <label for="level">Level:</label>
           <input id="level" [(ngModel)]="selectedPermission.level" name="level" required>
-
+  
           <label for="levelId">Level ID:</label>
           <input id="levelId" [(ngModel)]="selectedPermission.levelId" name="levelId" required>
         </div>
-
+  
         <!-- Permission Checkboxes with Existing Values -->
         <div class="checkbox-group">
           <label><input type="checkbox" [(ngModel)]="selectedPermission.canRead" name="canRead" /> Read</label>
@@ -110,17 +125,24 @@
           <label><input type="checkbox" [(ngModel)]="selectedPermission.canDelete" name="canDelete" /> Delete</label>
           <label><input type="checkbox" [(ngModel)]="selectedPermission.inheritance" name="inheritance" /> Inheritance</label>
         </div>
-
-        <!-- Prefilled Name and Description Fields -->
-        <label for="name">Name:</label>
-        <input id="name" [(ngModel)]="selectedPermission.name" name="name" required>
-
-        <label for="description">Description:</label>
-        <input id="description" [(ngModel)]="selectedPermission.description" name="description" required>
-
-        <button type="submit" class="submit-button">{{ viewMode === 'new' ? 'Set Permission' : 'Update Permission' }}</button>
-        <button type="button" class="cancel-button" (click)="showExistingPermissions()">Cancel</button>
+  
+        <!-- Name and Description Fields -->
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input id="name" [(ngModel)]="selectedPermission.name" name="name" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <input id="description" [(ngModel)]="selectedPermission.description" name="description" required>
+        </div>
+  
+        <!-- Action Buttons -->
+        <div class="button-group">
+          <button type="submit" class="submit-button">Save</button>
+          <button type="button" class="cancel-button" (click)="showExistingPermissions()">Cancel</button>
+        </div>
       </form>
     </div>
-  </div>
+    </div>
 </div>

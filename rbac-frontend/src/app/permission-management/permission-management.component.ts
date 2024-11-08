@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 
+
 @Component({
   standalone: true,
   selector: 'app-permission-management',
@@ -17,8 +18,7 @@ import { MatTableModule } from '@angular/material/table';
   imports: [FormsModule, CommonModule, MatPaginatorModule, MatTableModule]
 })
 export class PermissionManagementComponent implements OnInit {
-  viewMode: string = 'existing';
-
+  viewMode: 'existing' | 'new' | 'edit' = 'existing';
   // Paginator-related properties
   pageSize = 10;
   pageIndex = 0;
@@ -69,7 +69,6 @@ export class PermissionManagementComponent implements OnInit {
   fetchPermissions(): void {
     this.permissionService.getAllPermissions().subscribe(data => {
       this.permissions.data = data;
-      console.log(this.permissions.data)
     });
   }
 
@@ -120,7 +119,7 @@ export class PermissionManagementComponent implements OnInit {
   // Select a permission for editing
   editPermission(permission: any): void {
     this.viewMode = 'edit';
-    this.selectedPermission = { ...permission };
+    this.selectedPermission = { ...permission }; 
   }
   // Update the selected permission
   updatePermission(): void {

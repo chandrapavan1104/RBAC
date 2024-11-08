@@ -70,7 +70,6 @@ const deleteRole = async (req, res) => {
 
 const assignRoleToUser = async (req, res) => {
     const { userId, roleId } = req.body;
-    console.log(req.body);
     try {
       await db.query('INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2) ON CONFLICT DO NOTHING', [userId, roleId]);
       res.status(200).json({ message: 'Role assigned successfully' });

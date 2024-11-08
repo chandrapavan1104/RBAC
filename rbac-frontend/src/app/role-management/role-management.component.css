@@ -1,6 +1,6 @@
 /* General Styling */
 .content {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -47,7 +47,6 @@ h2 {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Header for Table Section */
 .table-section h3 {
   font-size: 1.5em;
   color: #333;
@@ -56,7 +55,6 @@ h2 {
   margin-bottom: 15px;
 }
 
-/* Table Styling */
 .table-section table {
   width: 100%;
   border-collapse: collapse;
@@ -80,7 +78,6 @@ h2 {
   color: #333;
 }
 
-/* Alternating Row Colors for Readability */
 .table-section tr:nth-child(even) {
   background-color: #f3f3f3;
 }
@@ -89,7 +86,6 @@ h2 {
   background-color: #e8f0fe;
 }
 
-/* Alignment of Boolean Permissions */
 .table-section td.true {
   color: green;
   font-weight: bold;
@@ -100,17 +96,15 @@ h2 {
   font-weight: bold;
 }
 
-
 /* General Form Section Styling */
 .form-section {
   padding: 30px;
-  max-width: 600px;
+  max-width: 1000px;
   margin: 0 auto;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
 }
 
 .form-section h3 {
@@ -197,7 +191,6 @@ h2 {
   background-color: #616161;
 }
 
-
 /* Headers and Labels */
 h3, .section-title {
   text-align: center;
@@ -251,37 +244,6 @@ label {
 
 .delete-button:hover {
   background-color: #d32f2f;
-}
-
-/* Input Fields */
-input[type="text"], input[type="email"], input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  box-sizing: border-box;
-}
-
-/* Buttons */
-button {
-  padding: 10px 20px;
-  font-size: 14px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-button {
-  background-color: #1976d2;
-  color: white;
-  margin-top: 15px;
-}
-
-.submit-button:hover {
-  background-color: #155a9a;
 }
 
 /* Level and Item Selection */
@@ -353,14 +315,4 @@ ul li.selected {
   font-size: 14px;
   color: #333;
   font-weight: normal;
-}
-
-/* Role Details */
-.role-details {
-  margin-top: 20px;
-}
-
-.role-details input[type="text"] {
-  width: calc(100% - 20px);
-  margin-bottom: 10px;
 }

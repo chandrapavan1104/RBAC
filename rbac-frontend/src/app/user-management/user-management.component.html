@@ -1,104 +1,3 @@
-<!-- <div class="content">
-  <h2>User Management</h2>
-
-  <div class="toggle-buttons">
-    <button [class.active]="viewMode === 'view'" (click)="showViewUsers()">View Users</button>
-    <button [class.active]="viewMode === 'add'" (click)="showAddUserForm()">Add New User</button>
-  </div>
-
-  <div *ngIf="viewMode === 'view'" class="table-section">
-    <h3>Existing Users</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>User Name</th>
-          <th>Email</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            <button class="edit-button" (click)="editUser(user)">Edit</button>
-            <button class="delete-button" (click)="confirmDeleteUser(user.id)">Delete</button>
-            <button class="manage-roles-button" (click)="manageRoles(user)">Manage Roles</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-<div *ngIf="viewMode === 'add'" class="add-user-section">
-  <h3>Add New User</h3>
-  <form (ngSubmit)="addUser()" class="add-user-form">
-    <div class="form-group">
-      <label for="username">Name:</label>
-      <input id="username" [(ngModel)]="newUser.username" name="username" required>
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input id="email" [(ngModel)]="newUser.email" name="email" required type="email">
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input id="password" [(ngModel)]="newUser.password" name="password" required type="password">
-    </div>
-
-    <button type="submit" class="submit-button">Add User</button>
-  </form>
-</div>
-
-
-<div *ngIf="viewMode === 'edit' && selectedUser" class="edit-user-section">
-  <h3>Edit User</h3>
-  <form (ngSubmit)="updateUser()" class="edit-user-form">
-    <div class="form-group">
-      <label for="editUsername">Username:</label>
-      <input id="editUsername" [(ngModel)]="selectedUser.username" name="editUsername" required />
-    </div>
-
-    <div class="form-group">
-      <label for="editEmail">Email:</label>
-      <input id="editEmail" [(ngModel)]="selectedUser.email" name="editEmail" required />
-    </div>
-
-    <div class="button-group">
-      <button type="submit" class="submit-button">Update User</button>
-      <button type="button" class="cancel-button" (click)="showViewUsers()">Cancel</button>
-    </div>
-  </form>
-</div>
-
-<div *ngIf="viewMode === 'manageRoles' && selectedUser" class="manage-roles-section">
-  <h3>Manage Roles for {{ selectedUser.username }}</h3>
-
-  <div class="role-list">
-    <h4>Assigned Roles</h4>
-    <ul>
-      <li *ngFor="let role of selectedUser.roles">
-        {{ role.name }}
-        <button (click)="removeRole(selectedUser, role)" class="remove-role-button">Remove</button>
-      </li>
-    </ul>
-  </div>
-
-  <div class="assign-role-section">
-    <h4>Assign New Role</h4>
-    <div class="role-select-wrapper">
-      <select #roleSelect class="role-select">
-        <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
-      </select>
-      <button (click)="assignRole(selectedUser, +roleSelect.value)" class="assign-role-button">Assign Role</button>
-    </div>
-  </div>
-
-  <button class="back-button" (click)="showViewUsers()">Back to User List</button>
-</div> -->
-
 <div class="content">
   <h2>User Management</h2>
 
@@ -160,9 +59,9 @@
   </div>
 
 
-  <div *ngIf="viewMode === 'edit' && selectedUser" class="edit-user-section">
+  <div *ngIf="viewMode === 'edit' && selectedUser" class="add-user-section">
     <h3>Edit User</h3>
-    <form (ngSubmit)="updateUser()" class="edit-user-form">
+    <form (ngSubmit)="updateUser()" class="add-user-form">
       <div class="form-group">
         <label for="editUsername">Username:</label>
         <input id="editUsername" [(ngModel)]="selectedUser.username" name="editUsername" required />
