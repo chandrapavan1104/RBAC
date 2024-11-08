@@ -17,7 +17,13 @@
         <th mat-header-cell *matHeaderCellDef> Permission ID </th>
         <td mat-cell *matCellDef="let permission"> {{ permission.id }} </td>
       </ng-container>
-
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let permission"> {{ permission.name }} </td>
+      </ng-container><ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let permission"> {{ permission.description }} </td>
+      </ng-container>
       <ng-container matColumnDef="level">
         <th mat-header-cell *matHeaderCellDef> Level </th>
         <td mat-cell *matCellDef="let permission"> {{ permission.level }} </td>
@@ -56,8 +62,8 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['id', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['id', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete'];"></tr>
+      <tr mat-header-row *matHeaderRowDef="['id','name','description', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id','name','description', 'level', 'levelId', 'canRead', 'canWrite', 'canEdit', 'canDelete'];"></tr>
     </table>
 
     <!-- Paginator Component -->
