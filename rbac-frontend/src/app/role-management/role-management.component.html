@@ -52,9 +52,10 @@
         {{ permission.name }}
       </label>
     </div>
-
-    <button type="submit" class="submit-button">{{ viewMode === 'add' ? 'Add Role' : 'Update Role' }}</button>
-    <button type="button" class="cancel-button" (click)="showViewRoles()">Cancel</button>
+    <div class="button-group">
+      <button type="submit" class="submit-button">{{ viewMode === 'add' ? 'Add Role' : 'Update Role' }}</button>
+      <button type="button" class="cancel-button" (click)="showViewRoles()">Cancel</button>
+    </div>
   </form>
 </div>
 

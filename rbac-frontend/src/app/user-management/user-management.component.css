@@ -100,10 +100,21 @@ button {
   background-color: #1976d2;
   color: white;
   margin-top: 15px;
+  width: 100%;
 }
 
 .submit-button:hover {
   background-color: #155a9a;
+}
+
+.cancel-button{
+  background-color: #757575;
+  color: white;
+  margin-top: 15px;
+  width: 100%;
+}
+.cancel-button:hover {
+  background-color: #616161;
 }
 
 .edit-button {
@@ -121,10 +132,21 @@ button {
   background-color: #f44336;
   color: white;
   padding: 8px 16px;
+  margin-right: 5px;
 }
 
 .delete-button:hover {
   background-color: #d32f2f;
+}
+
+.manage-roles-button{
+  background-color: #616161;
+  padding: 8px 16px;
+  color: white;
+}
+
+.manage-roles-button:hover{
+  background-color: #555;
 }
 
 /* Form Section Styling */

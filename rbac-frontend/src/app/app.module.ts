@@ -10,6 +10,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { RouterOutlet } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { RouterOutlet } from '@angular/router';
     PermissionManagementComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     RouterOutlet,
     FormsModule,
