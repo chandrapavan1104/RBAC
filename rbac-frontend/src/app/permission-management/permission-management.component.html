@@ -1,3 +1,5 @@
+<!--  -->
+
 <div class="content">
   <h2>Permission Management</h2>
 
@@ -8,42 +10,6 @@
   </div>
 
   <!-- Existing Permissions Table -->
-  <!-- <div *ngIf="viewMode === 'existing'" class="table-section">
-    <h3>Existing Permissions</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Permission ID</th>
-          <th>Level</th>
-          <th>Level ID</th>
-          <th>Read</th>
-          <th>Write</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let permission of permissions">
-          <td>{{ permission.id }}</td>
-          <td>{{ permission.level }}</td>
-          <td>{{ permission.level_id }}</td>
-          <td [class.true]="permission.can_read" [class.false]="!permission.can_read">
-            {{ permission.can_read ? 'Yes' : 'No' }}
-          </td>
-          <td [class.true]="permission.can_write" [class.false]="!permission.can_write">
-            {{ permission.can_write ? 'Yes' : 'No' }}
-          </td>
-          <td [class.true]="permission.can_edit" [class.false]="!permission.can_edit">
-            {{ permission.can_edit ? 'Yes' : 'No' }}
-          </td>
-          <td [class.true]="permission.can_delete" [class.false]="!permission.can_delete">
-            {{ permission.can_delete ? 'Yes' : 'No' }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div> -->
-
   <div *ngIf="viewMode === 'existing'" class="table-section">
     <h3>Existing Permissions</h3>
     <table mat-table [dataSource]="permissions" >
@@ -98,42 +64,57 @@
     <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 
-  <!-- Form to Create New Permission -->
-  <div *ngIf="viewMode === 'new'" class="form-section">
-    <h3>Create New Permission</h3>
-    <!-- Level Selection Buttons -->
-    <div class="select-level">
-      <button *ngFor="let level of levels"
-              (click)="selectLevel(level)"
-              [class.active]="selectedLevel === level">{{ level }}
-      </button>
+  <!-- Form to Create or Edit Permission -->
+  <div *ngIf="viewMode === 'new' || viewMode === 'edit'" class="form-section">
+    <h3>{{ viewMode === 'new' ? 'Create New Permission' : 'Edit Permission' }}</h3>
+
+    <!-- Level Selection for New Permission -->
+    <div *ngIf="viewMode === 'new'" class="select-level">
+      <button *ngFor="let level of levels" (click)="selectLevel(level)" [class.active]="selectedLevel === level">{{ level }}</button>
     </div>
 
-    <!-- Item List after Selecting Level -->
-    <div *ngIf="selectedLevel">
+    <!-- Item Selection After Level is Chosen (Only for New Permissions) -->
+    <div *ngIf="selectedLevel && viewMode === 'new'">
       <h4 class="section-title">Choose {{ selectedLevel }} Item</h4>
       <input type="text" placeholder="Search items..." (input)="onSearchInput($event)" />
       <ul>
-        <li *ngFor="let item of itemsInLevel"
-            (click)="selectItem(item.id)"
-            [class.selected]="selectedItemId === item.id">
-          {{ item.name }}
-        </li>
+        <li *ngFor="let item of itemsInLevel" (click)="selectItem(item.id)" [class.selected]="selectedItemId === item.id">{{ item.name }}</li>
       </ul>
     </div>
 
-    <!-- Set Permissions Section -->
-    <div *ngIf="selectedItemId">
-      <h4 class="section-title">Set Permissions</h4>
-      <div class="checkbox-group">
-        <label><input type="checkbox" [(ngModel)]="newPermission.canRead" /> Read</label>
-        <label><input type="checkbox" [(ngModel)]="newPermission.canWrite" /> Write</label>
-        <label><input type="checkbox" [(ngModel)]="newPermission.canEdit" /> Edit</label>
-        <label><input type="checkbox" [(ngModel)]="newPermission.canDelete" /> Delete</label>
-        <label><input type="checkbox" [(ngModel)]="newPermission.inheritance" /> Inheritance</label>
-      </div>
+    <!-- Permission Details Form for Both New and Edit Modes -->
+    <div *ngIf="viewMode === 'edit' || (viewMode === 'new' && selectedItemId)">
+      <h4 class="section-title">{{ viewMode === 'new' ? 'Set Permissions' : 'Update Permissions' }}</h4>
+      <form (ngSubmit)="viewMode === 'new' ? checkAndSetPermission() : updatePermission()">
 
-      <button (click)="checkAndSetPermission()" class="submit-button">Set Permission</button>
+        <!-- Prefilled Fields for Editing -->
+        <div *ngIf="viewMode === 'edit'">
+          <label for="level">Level:</label>
+          <input id="level" [(ngModel)]="selectedPermission.level" name="level" required>
+
+          <label for="levelId">Level ID:</label>
+          <input id="levelId" [(ngModel)]="selectedPermission.levelId" name="levelId" required>
+        </div>
+
+        <!-- Permission Checkboxes with Existing Values -->
+        <div class="checkbox-group">
+          <label><input type="checkbox" [(ngModel)]="selectedPermission.canRead" name="canRead" /> Read</label>
+          <label><input type="checkbox" [(ngModel)]="selectedPermission.canWrite" name="canWrite" /> Write</label>
+          <label><input type="checkbox" [(ngModel)]="selectedPermission.canEdit" name="canEdit" /> Edit</label>
+          <label><input type="checkbox" [(ngModel)]="selectedPermission.canDelete" name="canDelete" /> Delete</label>
+          <label><input type="checkbox" [(ngModel)]="selectedPermission.inheritance" name="inheritance" /> Inheritance</label>
+        </div>
+
+        <!-- Prefilled Name and Description Fields -->
+        <label for="name">Name:</label>
+        <input id="name" [(ngModel)]="selectedPermission.name" name="name" required>
+
+        <label for="description">Description:</label>
+        <input id="description" [(ngModel)]="selectedPermission.description" name="description" required>
+
+        <button type="submit" class="submit-button">{{ viewMode === 'new' ? 'Set Permission' : 'Update Permission' }}</button>
+        <button type="button" class="cancel-button" (click)="showExistingPermissions()">Cancel</button>
+      </form>
     </div>
   </div>
 </div>

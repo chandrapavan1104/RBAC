@@ -3,6 +3,7 @@
 export interface Permission {
     id: number;
     name: string;
+    description: string;
     level: string;         // App, Module, Feature, etc.
     levelId: number;       // ID of the specific level (e.g., ID of the feature or module)
     canRead: boolean;      // Read access
